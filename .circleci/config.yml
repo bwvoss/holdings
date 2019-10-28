@@ -1,25 +1,32 @@
 version: 2
 
-jobs:
-  build:
+executors:
+  jdk:
     docker:
       - image: openjdk:13.0.1-slim
+
+jobs:
+  build:
+    executor: jdk
 
     steps:
       - checkout
+      - run:
+          name: Run Tests
+          command: ./gradlew test
 
-  test:
-    docker:
-      - image: openjdk:13.0.1-slim
+  #test:
+    #docker:
+      #- image: openjdk:13.0.1-slim
 
-    steps:
-      - ./gradlew test
+    #steps:
+      #- run: pwd && ./gradlew test
 
-workflows:
-  version: 2
-  run:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
+#workflows:
+  #version: 2
+  #run:
+    #jobs:
+      #- build
+      #- test:
+          #requires:
+            #- build
