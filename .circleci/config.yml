@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: openjdk:13.0.1-slim
+
+    steps:
+      - checkout
+      - run: echo "first hello"
+      #- run: gradle test
