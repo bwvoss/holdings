@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build:
     docker:
@@ -6,5 +7,19 @@ jobs:
 
     steps:
       - checkout
-      - run: echo "first hello"
-      #- run: gradle test
+
+  test:
+    docker:
+      - image: openjdk:13.0.1-slim
+
+    steps:
+      - ./gradlew test
+
+workflows:
+  version: 2
+  run:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
